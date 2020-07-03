@@ -1,6 +1,10 @@
 #!/bin/bash
 # script to perform recon and gather information on a given IP address
 
+base64 -D <<<"IF8gX18gX19fICBfX18gX19fICBfIF9fICAKfCAnX18vIF8gXC8gX18vIF8gXHwgJ18gXCAKfCB8
+IHwgIF9fLyAoX3wgKF8pIHwgfCB8IHwKfF98ICBcX19ffFxfX19cX19fL3xffCB8X3w="
+printf "\n\n"
+
 # if no arguments passed, display usage info
 if [ -z "$1" ]
 then
