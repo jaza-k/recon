@@ -1,2 +1,4 @@
-# recon
-A Bash script that takes in an IP address and runs basic recon including OS detection, open ports, HTTP/SSH enumeration, etc.
+# 🔦 recon
+A Bash script that takes in an IP address and scouts for open ports, detects OS, attempts HTTP/SSH enumeration, etc.
+
+### Usage
