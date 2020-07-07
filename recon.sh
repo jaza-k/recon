@@ -4,6 +4,17 @@
 RED='\033[0;35m'
 NOCOLOR='\033[0m'
 
+# check if nmap is installed
+if [[ ! -x $NMAP ]]; then
+	echo "This script requires Nmap"
+	exit 1
+fi
+
+if [[ $EUID -ne 0 ]]; then
+	echo "Run as root"
+	exit 1
+fi
+
 # if no arguments passed, display usage info
 if [ -z "$1" ]
 then
