@@ -1,9 +1,8 @@
 #!/bin/bash
-# script to perform recon and gather information on a given IP address
+# reconnaissance script to gather information on a given IP address
 
-base64 -D <<<"IF8gX18gX19fICBfX18gX19fICBfIF9fICAKfCAnX18vIF8gXC8gX18vIF8gXHwgJ18gXCAKfCB8
-IHwgIF9fLyAoX3wgKF8pIHwgfCB8IHwKfF98ICBcX19ffFxfX19cX19fL3xffCB8X3w="
-printf "\n\n"
+RED='\033[0;35m'
+NOCOLOR='\033[0m'
 
 # if no arguments passed, display usage info
 if [ -z "$1" ]
@@ -11,6 +10,13 @@ then
 	echo "Usage: ./recon.sh <IP address>"
 	exit 1
 fi
+
+echo -e "${RED}
+ _ __ ___  ___ ___  _ __  
+| '__/ _ \/ __/ _ \| '_ \ 
+| | |  __/ (_| (_) | | | |
+|_|  \___|\___\___/|_| |_|
+${NOCOLOR}                                                      "
 
 # create new file to store results, overwritten with subsequent scans
 printf "\n------ NMAP ------\n\n" > results
@@ -48,5 +54,10 @@ then
 	cat temp2 >> results
 	rm temp2
 fi
+
+printf "\n\n------ OS ------\n" >> results
+echo "Checking OS..."
+
+sudo nmap -A $1 >> results
 
 cat results
