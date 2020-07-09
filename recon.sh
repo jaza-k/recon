@@ -35,7 +35,7 @@ printf "\n------ NMAP ------\n\n" > results
 echo "Running Nmap scan..."
 
 # run nmap w/ the ip address provided and send results to file
-nmap $1 | head -n -5 | tail -n +3 >> results
+nmap -p- -Pn $1 | tail -n +3 | head -n -1 >> results
 
 # do while loop to iterate thru results file
 while read line
@@ -66,9 +66,11 @@ then
 	rm temp2
 fi
 
-printf "\n\n------ OS ------\n" >> results
-echo "Checking OS..."
+echo "------ OS ------" >> results
+printf "\n" >> results
 
-sudo nmap -A $1 >> results
+echo "Fingerprinting OS..."
+
+nmap -O -p- $1 | tail -n +9 | head -n -4 >> results
 
 cat results
