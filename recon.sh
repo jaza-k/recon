@@ -79,4 +79,13 @@ echo -e "${GREEN}Fingerprinting OS...${NOCOLOR}"
 # enable OS detection w/ nmap
 nmap -O -p- $1 | tail -n +9 | head -n -4 >> results
 
+printf "${YELLOW}------ MAC/IP ADDRESSES ------${NOCOLOR}" >> results
+
+echo -e "${GREEN}Retrieving discovered MAC/IP addresses on network...${NOCOLOR}"
+
+printf "Hosts found on network: \n\n" >> results
+# scan network for live hosts & their ip/mac addresses
+nmap -sn 192.168.1.0/24 | tail -n + 3 >> results
+
+printf "\n" >> results
 cat results
