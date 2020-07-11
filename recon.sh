@@ -1,7 +1,9 @@
 #!/bin/bash
 # reconnaissance script to gather information on a given IP address
 
-RED='\033[0;35m'
+RED='\033[0;91m'
+GREEN='\033[0;92m'
+YELLOW='\033[0;93m'
 NOCOLOR='\033[0m'
 
 # check if nmap is installed
@@ -18,7 +20,7 @@ fi
 # if no arguments passed, display usage info
 if [ -z "$1" ]
 then
-	echo "Usage: ./recon.sh <IP address>"
+	echo "Usage: ./recon.sh <target IP address>"
 	exit 1
 fi
 
@@ -29,13 +31,16 @@ echo -e "${RED}
 |_|  \___|\___\___/|_| |_|
 ${NOCOLOR}                                                      "
 
+printf "Hello, $2\n\n\n"
+
 # create new file to store results, overwritten with subsequent scans
-printf "\n------ NMAP ------\n\n" > results
+printf "\n\n${YELLOW}------ NMAP ------${NOCOLOR}\n\n" > results
 
-echo "Running Nmap scan..."
+echo -e "${GREEN}Running Nmap scan on target...${NOCOLOR}"
 
+printf "Open ports found on target machine: \n\n" >> results
 # run nmap w/ the ip address provided and send results to file
-nmap -p- -Pn $1 | tail -n +3 | head -n -1 >> results
+nmap -p- -Pn $1 | tail -n +4 | head -n -1 >> results
 
 # do while loop to iterate thru results file
 while read line
@@ -66,11 +71,12 @@ then
 	rm temp2
 fi
 
-echo "------ OS ------" >> results
+echo -e "${YELLOW}------ OS ------${NOCOLOR}" >> results
 printf "\n" >> results
 
-echo "Fingerprinting OS..."
+echo -e "${GREEN}Fingerprinting OS...${NOCOLOR}"
 
+# enable OS detection w/ nmap
 nmap -O -p- $1 | tail -n +9 | head -n -4 >> results
 
 cat results
