@@ -83,7 +83,7 @@ printf "\n" >> results
 echo -e "${GREEN}Fingerprinting OS...${NOCOLOR}"
 
 # enable OS detection w/ nmap
-nmap -O -p- $1 | tail -n +9 | head -n -4 >> results
+nmap -A $1 | tail -n +9 | head -n -4 >> results
 
 echo -e "${GREEN}Calculating IP network information...${NOCOLOR}"
 
